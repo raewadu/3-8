@@ -8,12 +8,16 @@ const listElement = document.querySelector("#todo-list");
 const searchElement = document.querySelector("#search");
 const filterButtons = document.querySelectorAll(".filters button");
 const themeToggleButton = document.querySelector("#theme-toggle");
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "dark") {
+let savedTheme = localStorage.getItem("theme");
+if (!savedTheme) {
+  document.body.classList.add("dark");
+  localStorage.setItem("theme", "dark");
+} else if (savedTheme === "dark") {
   document.body.classList.add("dark");
 } else {
   document.body.classList.remove("dark");
-}
+} 
+
 themeToggleButton.addEventListener("click", () => {
   if (document.body.classList.contains("dark")) {
     document.body.classList.remove("dark");
@@ -24,6 +28,8 @@ themeToggleButton.addEventListener("click", () => {
   }
 });
 
+
+  
 
 
 if (localStorage.getItem("tasks")) {
@@ -114,3 +120,4 @@ filterButtons.forEach((button) => {
 });
 
 renderElements();
+renderTheme();
